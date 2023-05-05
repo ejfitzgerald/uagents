@@ -164,5 +164,7 @@ class Protocol:
         sorted_schema_digests = sorted(list(all_model_digests))
         hasher = hashlib.sha256()
         for digest in sorted_schema_digests:
+            if "model:" in digest:
+                digest = digest.split("model:")[1]
             hasher.update(bytes.fromhex(digest))
         self._digest = hasher.digest().hex()
